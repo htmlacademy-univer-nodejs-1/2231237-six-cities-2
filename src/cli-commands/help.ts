@@ -6,7 +6,7 @@ export default class HelpCommand implements CliCommandInterface {
 
   public async execute(): Promise<void> {
     console.log(`
-        ${chalk.bgGreen('Программа для подготовки данных для REST API сервера')}
+        ${chalk.bgGreen('Программа для подготовки данных для REST API сервера.')}
         Пример:
             ts-node main.cli.ts ${chalk.cyanBright('--<command>')} ${chalk.blueBright('[--arguments]')}
          ${chalk.bold('Команды')}
