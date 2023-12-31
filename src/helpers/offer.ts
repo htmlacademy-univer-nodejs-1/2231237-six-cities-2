@@ -24,7 +24,6 @@ export function createNewOffer(offer: string): OfferType {
     offerAuthorAvatar,
     offerAuthorType,
     offerAuthorEmail,
-    offerAuthorPassword,
     commentsCount,
     latitude,
     longitude] = offerRow;
@@ -47,10 +46,9 @@ export function createNewOffer(offer: string): OfferType {
       username: offerAuthorName,
       avatar: offerAuthorAvatar,
       type: offerAuthorType as unknown as UserTypeEnum,
-      email: offerAuthorEmail,
-      password: offerAuthorPassword
+      email: offerAuthorEmail
     },
     commentsCount: parseInt(commentsCount, 10),
-    coordinates: {latitude: parseFloat(latitude), longitude: parseFloat(longitude)}
+    coords: {latitude: parseFloat(latitude), longitude: parseFloat(longitude)}
   };
 }

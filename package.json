@@ -10,32 +10,44 @@
   "main": "main.js",
   "scripts": {
     "start": "npm run build && node ./dist/main.js",
+    "start:dev": "npm run ts ./src/main.ts | pino-pretty --colorize --translateTime SYS:standard",
     "build": "npm run clean && npm run compile",
     "lint": "eslint src/ --ext .ts",
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
     "ts": "ts-node",
     "mock:server": "json-server ./mocks/mock-server-data.json --port 3123",
-    "cli": "node ./dist/cli.js"
+    "cli": "node ./dist/cli.js",
+    "cli:dev": "ts-node ./src/main.cli.ts"
   },
   "devDependencies": {
+    "@types/convict-format-with-validator": "^6.0.5",
     "@types/node": "18.16.3",
     "@typescript-eslint/eslint-plugin": "5.46.0",
     "@typescript-eslint/parser": "5.46.0",
     "dayjs": "^1.11.10",
     "eslint": "8.39.0",
     "eslint-config-htmlacademy": "9.1.1",
+    "inversify": "^6.0.1",
     "json-server": "0.17.1",
+    "pino-pretty": "^9.1.1",
     "rimraf": "3.0.2",
     "ts-node": "10.9.1",
     "typescript": "4.9.5"
   },
   "dependencies": {
+    "@typegoose/typegoose": "^12.0.0",
     "chalk": "^5.3.0",
+    "convict": "^6.2.3",
+    "convict-format-with-validator": "^6.2.0",
     "dayjs": "^1.11.10",
+    "dotenv": "^16.0.3",
     "got": "^13.0.0",
     "json-server": "^0.17.1",
-    "node-fetch": "^3.3.2"
+    "mongoose": "^6.7.2",
+    "node-fetch": "^3.3.2",
+    "pino": "^8.17.1",
+    "reflect-metadata": "^0.1.13"
   },
   "type": "module",
   "engines": {
