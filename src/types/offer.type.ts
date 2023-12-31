@@ -21,5 +21,5 @@ export type OfferType = {
   amenities: AmenitiesEnum[];
   offerAuthor: User;
   commentsCount: number;
-  coordinates: CoordinatesType;
+  coords: CoordinatesType;
 }
