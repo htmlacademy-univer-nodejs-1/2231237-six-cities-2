@@ -2,7 +2,7 @@ import typegoose, {defaultClasses, getModelForClass, Ref, Severity} from '@typeg
 import {CityEnum} from '../../types/city.enum';
 import {AmenitiesEnum} from '../../types/amenities.enum';
 import {HousingTypeEnum} from '../../types/housing-type.enum';
-import {CoordinatesType} from '../../types/coords';
+import {CoordinatesType} from '../../types/coords.js';
 import {UserEntity} from '../user/user.entity';
 
 const {prop, modelOptions} = typegoose;
