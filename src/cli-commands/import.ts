@@ -15,6 +15,7 @@ import MongoClientService from '../db-client/mongodb-client';
 import ConsoleLogger from '../loggers/console.logger';
 import {OfferType} from '../types/offer.type';
 import {DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD} from '../types/consts';
+import {Icomment} from '../modules/comment/Icomment';
 
 export default class ImportCommand implements CliCommandInterface {
   public readonly name = '--import';
@@ -22,6 +23,7 @@ export default class ImportCommand implements CliCommandInterface {
   private offerService!: Ioffer;
   private databaseService!: IDbClient;
   private readonly logger: ILogger;
+  private commentService!: Icomment;
   private salt!: string;
 
   constructor() {
@@ -29,7 +31,7 @@ export default class ImportCommand implements CliCommandInterface {
     this.onComplete = this.onComplete.bind(this);
 
     this.logger = new ConsoleLogger();
-    this.offerService = new OfferService(this.logger, OfferModel);
+    this.offerService = new OfferService(this.logger, OfferModel, this.commentService);
     this.userService = new UserService(this.logger, UserModel);
     this.databaseService = new MongoClientService(this.logger);
   }

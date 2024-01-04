@@ -8,5 +8,7 @@ export enum ComponentEnum {
   CoordinatesServiceInterface = 'CoordinatesServiceInterface',
   CoordinatesModel = 'CoordinatesModel',
   IOffer = 'IOffer',
-  OfferModel = 'OfferModel'
+  OfferModel = 'OfferModel',
+  IComment = 'IComment',
+  CommentModel ='CommentModel'
 }
