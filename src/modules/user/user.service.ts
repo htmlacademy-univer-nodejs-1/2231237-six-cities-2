@@ -5,6 +5,7 @@ import {DocumentType, types} from '@typegoose/typegoose';
 import {UserEntity} from './user.entity';
 import CreateUser from './create-user.js';
 import {ComponentEnum} from '../../types/component.enum';
+import {OfferEntity} from '../offer/offer.entity';
 
 @injectable()
 export default class UserService implements Iuser {
@@ -29,6 +30,16 @@ export default class UserService implements Iuser {
     return this.userModel.findOne({email});
   }
 
+  public async findFavorites(userId: string): Promise<DocumentType<OfferEntity>[]> {
+    const offers = await this.userModel.findById(userId).select('favorite');
+    if (!offers) {
+      return [];
+    }
+
+    return this.userModel
+      .find({_id: { $in: offers.favorite }});
+  }
+
   public async findOrCreate(dto: CreateUser, salt: string): Promise<DocumentType<UserEntity>> {
     const existedUser = await this.findByEmail(dto.email);
 
@@ -37,5 +48,17 @@ export default class UserService implements Iuser {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async findById(userId: string): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel.findOne({'_id': userId});
+  }
+
+  public addToFavoritesById(userId: string, offerId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.userModel.findByIdAndUpdate(userId, {$push: {favorite: offerId}, new: true});
+  }
+
+  public removeFromFavoritesById(userId: string, offerId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.userModel.findByIdAndUpdate(userId, {$pull: {favorite: offerId}, new: true});
   }
 }
