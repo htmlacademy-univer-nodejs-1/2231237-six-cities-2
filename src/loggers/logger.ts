@@ -1,6 +1,6 @@
 import {Logger, pino} from 'pino';
 import {injectable} from 'inversify';
-import {ILogger} from './ilogger.js';
+import {ILogger} from './iLogger';
 
 @injectable()
 export default class LoggerService implements ILogger {

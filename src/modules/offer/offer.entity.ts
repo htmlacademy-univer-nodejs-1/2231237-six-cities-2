@@ -1,7 +1,7 @@
 import typegoose, {defaultClasses, getModelForClass, Ref, Severity} from '@typegoose/typegoose';
 import {CityEnum} from '../../types/city.enum';
 import {AmenitiesEnum} from '../../types/amenities.enum';
-import {HousingTypeEnum} from '../../types/housing-type.enum';
+import {HousingTypeEnum} from '../../types/housing.type.enum';
 import {CoordinatesType} from '../../types/coords.js';
 import {UserEntity} from '../user/user.entity';
 
@@ -37,7 +37,8 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
     minlength: [20, 'Min length for description is 20'],
-    maxlength: [1024, 'Max length for description is 1024']
+    maxlength: [1024, 'Max length for description is 1024'],
+    trim: true
   })
   public description!: string;
 
@@ -48,9 +49,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public amenities!: AmenitiesEnum[];
 
-  @prop({required: true, default: false})
-  public favorite!: boolean;
-
   @prop({
     required: true, min: [1, 'Min length for username is 1'],
     max: [10, 'Max length for username is 10']
@@ -59,7 +57,9 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    type: () => String,
+    type: () => [String],
+    minCount: [6, 'Images should be 6'],
+    maxCount: [6, 'Images should be 6'],
     enum: HousingTypeEnum
   })
   public housingType!: HousingTypeEnum;
@@ -73,7 +73,8 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
     minlength: [10, 'Min length for name is 10'],
-    maxlength: [100, 'Max length for username is 15']
+    maxlength: [100, 'Max length for username is 100'],
+    trim: true
   })
   public name!: string;
 
@@ -86,7 +87,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({required: true, default: false})
   public premium!: boolean;
 
-  @prop({required: true, match: [/.*\.(?:jpg|png)/, 'Avatar must be jpg or png']})
+  @prop({required: true})
   public previewImage!: string;
 
   @prop({required: true})

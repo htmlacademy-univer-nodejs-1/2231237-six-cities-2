@@ -13,9 +13,9 @@ import {
   MIN_RENT_COST
 } from '../types/consts.js';
 import {CityEnum} from '../types/city.enum.js';
-import {HousingTypeEnum} from '../types/housing-type.enum.js';
+import {HousingTypeEnum} from '../types/housing.type.enum';
 import {AmenitiesEnum} from '../types/amenities.enum.js';
-import {UserTypeEnum} from '../types/user-type.enum.js';
+import {UserTypeEnum} from '../types/user.type.enum';
 import dayjs from 'dayjs';
 
 export interface OfferGeneratorInterface {

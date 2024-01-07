@@ -1,18 +1,18 @@
 import {DocumentType, types} from '@typegoose/typegoose';
 import {inject, injectable} from 'inversify';
 import {CommentEntity} from './comment.entity';
-import {Ioffer} from '../offer/Ioffer';
-import {Icomment} from './Icomment';
+import {IOffer} from '../offer/IOffer';
+import {IComment} from './IComment';
 import {ComponentEnum} from '../../types/component.enum';
 import CreateComment from './create-comment';
-import {SortType} from '../../types/sort-type';
+import {SortType} from '../../types/sort.type';
 
 const COMMENTS_COUNT = 50;
 @injectable()
-export default class CommentService implements Icomment {
+export default class CommentService implements IComment {
   constructor(
     @inject(ComponentEnum.CommentModel) private readonly commentModel: types.ModelType<CommentEntity>,
-    @inject(ComponentEnum.OfferModel) private readonly offerService: Ioffer
+    @inject(ComponentEnum.OfferModel) private readonly offerService: IOffer
   ) {
   }
 

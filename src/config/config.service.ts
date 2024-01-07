@@ -2,7 +2,7 @@ import {inject, injectable} from 'inversify';
 import {configSchema, ConfigSchema} from './config.schema';
 import {ComponentEnum} from '../types/component.enum';
 import {config} from 'dotenv';
-import {ILogger} from '../loggers/ilogger.js';
+import {ILogger} from '../loggers/iLogger';
 import {Iconfig} from './iconfig.js';
 
 @injectable()
@@ -10,7 +10,7 @@ export default class ConfigService implements Iconfig<ConfigSchema> {
   private readonly config: ConfigSchema;
 
   constructor(
-    @inject(ComponentEnum.ILog) private readonly logger: ILogger
+    @inject(ComponentEnum.ILogger) private readonly logger: ILogger
   ) {
     const configOutput = config();
 

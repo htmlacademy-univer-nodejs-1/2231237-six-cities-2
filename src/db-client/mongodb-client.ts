@@ -1,8 +1,8 @@
-import {IDbClient} from './idb-client.js';
+import {IDbClient} from './iDb-client';
 import mongoose, {Mongoose} from 'mongoose';
 import {inject, injectable} from 'inversify';
 import {ComponentEnum} from '../types/component.enum.js';
-import {ILogger} from '../loggers/ilogger.js';
+import {ILogger} from '../loggers/iLogger';
 import {setTimeout} from 'node:timers/promises';
 
 const RETRY_COUNT = 5;
@@ -14,7 +14,7 @@ export default class MongoClientService implements IDbClient {
   private mongooseInstance: Mongoose | null = null;
 
   constructor(
-    @inject(ComponentEnum.ILog) private readonly logger: ILogger
+    @inject(ComponentEnum.ILogger) private readonly logger: ILogger
   ) {
   }
 
