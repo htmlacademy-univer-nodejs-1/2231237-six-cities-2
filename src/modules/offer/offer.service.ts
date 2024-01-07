@@ -1,22 +1,20 @@
-import {Ioffer} from './Ioffer.js';
+import {IOffer} from './IOffer';
 import {inject, injectable} from 'inversify';
-import {ILogger} from '../../loggers/ilogger.js';
+import {ILogger} from '../../loggers/iLogger';
 import {DocumentType, types} from '@typegoose/typegoose';
 import {OfferEntity} from './offer.entity.js';
 import CreateOffer from './create-offer.js';
 import {ComponentEnum} from '../../types/component.enum';
-import {Icomment} from '../comment/Icomment';
 import {UpdateOffer} from './update-offer';
-import {SortType} from '../../types/sort-type';
+import {SortType} from '../../types/sort.type';
 
 const MAX_OFFERS_COUNT = 60;
 const MAX_PREMIUM_OFFERS_COUNT = 3;
 @injectable()
-export default class OfferService implements Ioffer {
+export default class OfferService implements IOffer {
   constructor(
-    @inject(ComponentEnum.ILog) private readonly logger: ILogger,
-    @inject(ComponentEnum.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
-    @inject(ComponentEnum.IComment) private readonly commentService: Icomment
+    @inject(ComponentEnum.ILogger) private readonly logger: ILogger,
+    @inject(ComponentEnum.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
   ) {
   }
 
@@ -35,13 +33,12 @@ export default class OfferService implements Ioffer {
   }
 
   public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    await this.commentService.deleteByOfferId(offerId);
     return this.offerModel
       .findByIdAndDelete(offerId)
       .exec();
   }
 
-  public async find(count: number): Promise<DocumentType<OfferEntity>[]> {
+  public async find(count: number | undefined): Promise<DocumentType<OfferEntity>[]> {
     const limit = count ?? MAX_OFFERS_COUNT;
     return this.offerModel
       .find()

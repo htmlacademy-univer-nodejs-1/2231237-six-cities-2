@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import {CliCommandInterface} from './cli-command.js';
 import OfferGenerator from '../modules/offer-generator.js';
 import {MockData} from '../types/mock-offer.type';
-import {ILogger} from '../loggers/ilogger';
+import {ILogger} from '../loggers/iLogger';
 import LoggerService from '../loggers/logger';
 
 export default class GenerateCommand implements CliCommandInterface {

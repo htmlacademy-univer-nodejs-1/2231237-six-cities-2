@@ -1,6 +1,6 @@
 export enum ComponentEnum {
   Application = 'Application',
-  ILog = 'ILog',
+  ILogger = 'ILogger',
   IConfig = 'IConfig',
   DatabaseClientInterface = 'DatabaseClientInterface',
   IUser = 'IUser',
@@ -10,5 +10,9 @@ export enum ComponentEnum {
   IOffer = 'IOffer',
   OfferModel = 'OfferModel',
   IComment = 'IComment',
-  CommentModel ='CommentModel'
+  CommentModel ='CommentModel',
+  OfferController = 'OfferController',
+  UserController = 'UserController',
+  CommentController = 'CommentController',
+  ExceptionFilter = 'ExceptionFilter'
 }

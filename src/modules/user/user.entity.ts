@@ -1,5 +1,5 @@
 import typegoose, {defaultClasses, getModelForClass} from '@typegoose/typegoose';
-import {UserTypeEnum} from '../../types/user-type.enum';
+import {UserTypeEnum} from '../../types/user.type.enum';
 import {User} from '../../types/user.js';
 import {createSHA256} from '../../helpers/common.js';
 

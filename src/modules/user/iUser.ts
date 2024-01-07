@@ -3,7 +3,7 @@ import CreateUser from './create-user.js';
 import {UserEntity} from './user.entity';
 import {OfferEntity} from '../offer/offer.entity';
 
-export interface Iuser {
+export interface IUser {
   create(dto: CreateUser, salt: string): Promise<DocumentType<UserEntity>>;
 
   findByEmail(email: string): Promise<DocumentType<UserEntity> | null>;

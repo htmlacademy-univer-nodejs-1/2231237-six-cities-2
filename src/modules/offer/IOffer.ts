@@ -2,13 +2,14 @@ import {DocumentType} from '@typegoose/typegoose';
 import CreateOffer from './create-offer.js';
 import {OfferEntity} from './offer.entity.js';
 import {UpdateOffer} from './update-offer';
+import {DocumentExistsInterface} from '../../types/document.exists';
 
-export interface Ioffer {
+export interface IOffer extends DocumentExistsInterface {
   create(dto: CreateOffer): Promise<DocumentType<OfferEntity>>;
 
   findById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
 
-  find(count: number): Promise<DocumentType<OfferEntity>[]>;
+  find(count: number|undefined): Promise<DocumentType<OfferEntity>[]>;
 
   deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
 

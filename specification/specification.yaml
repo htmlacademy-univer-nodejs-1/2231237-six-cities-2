@@ -90,38 +90,10 @@ paths:
         "204":
           description: Сессия завершена
 
-  /offers/premium/{city}:
+  /users/favorite:
     get:
       tags:
-        - offers
-      summary: Премиальные предложения для города
-      description: Метод возвращает не больше 3 предложений с флагом «Premium»
-      parameters:
-        - name: city
-          in: query
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  City:
-                    type: string
-                    example: Paris
-          description: Город
-      responses:
-        "200":
-          description: Премиальные предложения для города
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/offers'
-        "404":
-          description: Список премиальных предложений не получен
-
-  /offers/favorite:
-    get:
-      tags:
-        - offers
+        - users
       summary: Список избранных предложений
       description: Метод возвращает список предложений, добавленных в избранное
       security:
@@ -136,25 +108,14 @@ paths:
         "401":
           description: Пользователь не авторизован
 
-  /offers/favorite/{offerId}:
+  /users/favorite/{offerId}:
     post:
       tags:
-        - offers
+        - users
       summary: Добавление предложения в избранное
       description: Метод добавляет предложение в избранное
       security:
         - Bearer: [ ]
-      parameters:
-        - name: offerId
-          in: query
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  offerId:
-                    type: string
-                    example: ID
 
       responses:
         "201":
@@ -170,17 +131,6 @@ paths:
       description: Метод удаляет предложение из избранного
       security:
         - Bearer: [ ]
-      parameters:
-        - name: offerId
-          in: query
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  offerId:
-                    type: string
-                    example: ID
 
       responses:
         "201":
@@ -190,20 +140,22 @@ paths:
         "500":
           description: Предложение не удалено из избранного
 
-  /offers/create:
+  /offers/premium/{city}:
     post:
       tags:
         - offers
-      summary: Создание нового предложения
-      description: Метод создает новое предложение
+      summary: Премиальные предложения для города
+      description: Метод возвращает не больше 3 предложений с флагом «Premium»
       security:
         - Bearer: [ ]
       requestBody:
-        description: Данные для создания предложения
+        description: Премиальные предложения для города
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/offer'
+              $ref: '#/components/schemas/offers'
+              "404":
+                description: Список предложений для city не получен
         required: true
       responses:
         "200":
@@ -225,17 +177,6 @@ paths:
       description: Метод редактирует предложение
       security:
         - Bearer: [ ]
-      parameters:
-        - name: offerId
-          in: query
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  offerId:
-                    type: string
-                    example: ID
       requestBody:
         description: Данные для редактирования предложения
         content:
@@ -277,18 +218,6 @@ paths:
         - offers
       summary: Подробная информация по предложению
       description: Метод возвращает подробную информацию по предложению
-      parameters:
-        - name: offerId
-          in: query
-          description: OFFER ID
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  offerId:
-                    type: string
-                    example: ID
       responses:
         "200":
           description: Подробная информация по предложению
@@ -324,7 +253,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/offers'
-
+    post:
+      tags:
+        - offers
+      summary: Создание нового предложения
+      description: Метод создает новое предложение
+      security:
+        - Bearer: [ ]
+      requestBody:
+        description: Данные для создания предложения
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/offer'
+        required: true
+      responses:
+        "200":
+          description: Предложение успешно создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        "400":
+          description: Предложение не создано из-за невалидных параметров
+        "401":
+          description: Пользователь не авторизован
 
   /comments/{offerId}:
     get:
@@ -332,18 +285,6 @@ paths:
         - comments
       summary: Список комментариев для выбранного предложения
       description: Метод возвращает список комментариев для выбранного предложения
-      parameters:
-        - name: offerId
-          in: query
-          description: OFFER ID
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  offerId:
-                    type: string
-                    example: ID
       responses:
         "200":
           description: Список комментариев для предложения успешно получен

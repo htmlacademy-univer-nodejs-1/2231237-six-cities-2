@@ -3,10 +3,10 @@ import {CliCommandInterface} from './cli-command.js';
 import TSVFileReader from '../file-reader/tsv-file-reader.js';
 import {getConnectionString, getErrorMessage} from '../helpers/common.js';
 import {createNewOffer} from '../helpers/offer.js';
-import {Iuser} from '../modules/user/iuser';
-import {Ioffer} from '../modules/offer/Ioffer';
-import {IDbClient} from '../db-client/idb-client';
-import {ILogger} from '../loggers/ilogger';
+import {IUser} from '../modules/user/iUser';
+import {IOffer} from '../modules/offer/IOffer';
+import {IDbClient} from '../db-client/iDb-client';
+import {ILogger} from '../loggers/iLogger';
 import OfferService from '../modules/offer/offer.service';
 import {OfferModel} from '../modules/offer/offer.entity';
 import UserService from '../modules/user/user.service';
@@ -15,15 +15,13 @@ import MongoClientService from '../db-client/mongodb-client';
 import ConsoleLogger from '../loggers/console.logger';
 import {OfferType} from '../types/offer.type';
 import {DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD} from '../types/consts';
-import {Icomment} from '../modules/comment/Icomment';
 
 export default class ImportCommand implements CliCommandInterface {
   public readonly name = '--import';
-  private userService!: Iuser;
-  private offerService!: Ioffer;
+  private userService!: IUser;
+  private offerService!: IOffer;
   private databaseService!: IDbClient;
   private readonly logger: ILogger;
-  private commentService!: Icomment;
   private salt!: string;
 
   constructor() {
@@ -31,7 +29,7 @@ export default class ImportCommand implements CliCommandInterface {
     this.onComplete = this.onComplete.bind(this);
 
     this.logger = new ConsoleLogger();
-    this.offerService = new OfferService(this.logger, OfferModel, this.commentService);
+    this.offerService = new OfferService(this.logger, OfferModel);
     this.userService = new UserService(this.logger, UserModel);
     this.databaseService = new MongoClientService(this.logger);
   }
