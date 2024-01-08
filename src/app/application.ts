@@ -12,6 +12,7 @@ import {getConnectionString} from '../helpers/common';
 @injectable()
 export default class Application {
   private server: Express;
+
   constructor(
     @inject(ComponentEnum.ILogger) private readonly logger: ILogger,
     @inject(ComponentEnum.IConfig) private readonly config: Iconfig<ConfigSchema>,
@@ -59,6 +60,10 @@ export default class Application {
 
   private async _initMiddleware() {
     this.server.use(express.json());
+    this.server.use(
+      '/upload',
+      express.static(this.config.get('UPLOAD_DIR'))
+    );
   }
 
   public async init() {
