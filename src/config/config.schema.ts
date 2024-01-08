@@ -12,6 +12,7 @@ export type ConfigSchema = {
   DB_PASSWORD: string;
   DB_PORT: string;
   DB_NAME: string;
+  UPLOAD_DIR: string;
 }
 
 export const configSchema = convict<ConfigSchema>({
@@ -56,5 +57,11 @@ export const configSchema = convict<ConfigSchema>({
     format: String,
     env: 'DB_NAME',
     default: 'buy-and-sell'
+  },
+  UPLOAD_DIR: {
+    doc: 'Directory for upload files',
+    format: String,
+    env: 'UPLOAD_DIR',
+    default: null
   }
 });

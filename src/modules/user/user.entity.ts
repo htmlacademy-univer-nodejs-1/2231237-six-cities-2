@@ -14,16 +14,17 @@ export interface UserEntity extends defaultClasses.Base {
   }
 })
 export class UserEntity extends defaultClasses.TimeStamps implements User {
-  @prop({unique: true, required: true, match: [/^.+@.+$/, 'Email is incorrect']})
+  @prop({unique: true, required: true, type: () => String})
   public email: string;
 
-  @prop({required: false, default: '', match: [/.*\.(?:jpg|png)/, 'Avatar must be jpg or png']})
+  @prop({required: false, default: '', match: [/.*\.(?:jpg|png)/, 'Avatar must be jpg or png'], type: () => String})
   public avatar?: string;
 
   @prop({
     required: true,
     minlength: [1, 'Min length for username is 1'],
-    maxlength: [15, 'Max length for username is 15']
+    maxlength: [15, 'Max length for username is 15'],
+    type: () => String
   })
   public username: string;
 
@@ -37,13 +38,14 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({
     required: true,
     minlength: [6, 'Min length for password is 6'],
-    maxlength: [12, 'Max length for password is 12']
+    maxlength: [12, 'Max length for password is 12'],
+    type: () => String
   })
   public password?: string;
 
   @prop({
     required: true,
-    type: () => String,
+    type: () => [String],
   })
   public favorite!: string[];
 
